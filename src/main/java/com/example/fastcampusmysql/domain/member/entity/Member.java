@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
-public class Member {
+public class
+Member {
     final private Long id;
     private String nickname;
     final private String email;
@@ -24,12 +25,19 @@ public class Member {
         this.email = Objects.requireNonNull(email);
         this.birthday = Objects.requireNonNull(birthday);
 
-        validate(nickname);
+        validateNickname(nickname);
         this.nickname = Objects.requireNonNull(nickname);
         this.createdAt = createdAt == null? LocalDateTime.now() : createdAt;
     }
+    public void changeNickname(String to){
+        Objects.requireNonNull(to);
+        validateNickname(to);
+        nickname = to;
+    }
 
-    public void validate(String nickname){
+    private void validateNickname(String nickname){
         Assert.isTrue(nickname.length() <= NAME_MAX_LENGTH, "최대길이를 초과하였습니다.");
     }
+
+
 }
